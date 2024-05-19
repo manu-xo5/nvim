@@ -6,6 +6,9 @@
 --       strings = false,
 --     },
 --   },
+--   config = function ()
+--     vim.cmd("colorscheme gruber-darker")
+--   end
 -- }
 
 -- return {
