@@ -27,6 +27,7 @@ return {
 			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
 			vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
 			vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, opts)
+			vim.keymap.set("n", "<m-s-f>", vim.lsp.buf.format, opts)
 			vim.keymap.set("n", "<leader>li", vim.cmd.LspInfo, opts)
 
 			-- Typescript specific settings

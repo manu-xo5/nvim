@@ -55,3 +55,7 @@ keymap("i", "<C-c>", "<Nop>", { noremap = true, silent = true, nowait = true })
 keymap("t", "<Esc>", "<c-\\><c-n>")
 keymap("n", "<leader>tt", ":tab sb term<CR>")
 keymap("n", "<leader>tv", ":vs<CR>:b term<CR>")
+
+---- better movement in insert mode ----
+keymap("i", "<c-h>", "<c-[><s-^>i", opts)
+keymap("i", "<c-l>", "<c-[><s-$>a", opts)

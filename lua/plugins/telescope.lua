@@ -19,10 +19,11 @@ return {
 				previewer = false,
 				-- layout_strategy = 'center',
 				sorting_strategy = "ascending",
-				layout_config = {
-					anchor = "N",
-					prompt_position = "top",
-				},
+        theme = "dropdown",
+				-- layout_config = {
+				-- 	anchor = "N",
+				-- 	prompt_position = "top",
+				-- },
 			},
 		},
 	},

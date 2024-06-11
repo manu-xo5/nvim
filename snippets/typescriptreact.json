@@ -1,61 +1,86 @@
 {
-    "Create a better state": {
-        "prefix": "us",
-        "body": [
-            "const [$1, set$0${1}] = useState()"
-        ],
-        "description": "Create a state"
-    },
-    "Import * as React": {
-        "prefix": "imr",
-        "body": [
-            "import * as React from \"react\""
-        ],
-        "description": "Import * as React"
-    },
-    "React Functional Component": {
-        "prefix": "rfc",
-        "body": [
-            "interface ${1:ComponentName}Props {}",
-            "",
-            "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = () => {",
-            "  return (",
-            "    <div>",
-            "      $0",
-            "    </div>",
-            "  );",
-            "};"
-        ],
-        "description": "React Functional Component"
-    },
-    "React Export Functional Component": {
-        "prefix": "rfce",
-        "body": [
-            "export const ${1:ComponentName}: React.FC = () => {",
-            "  return (",
-            "    <div>",
-            "      $0",
-            "    </div>",
-            "  );",
-            "};"
-        ],
-        "description": "React Export Functional Component"
-    },
-    "React Functional Component with default export": {
-        "prefix": "rfcd",
-        "body": [
-            "interface ${1:ComponentName}Props {}",
-            "",
-            "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = () => {",
-            "  return (",
-            "    <div>",
-            "      $0",
-            "    </div>",
-            "  );",
-            "};",
-            "",
-            "export default ${1:ComponentName};"
-        ],
-        "description": "React Functional Component with default export"
-    }
+  "Create a better state": {
+    "prefix": "us",
+    "body": ["const [$1, set$0$1] = useState()"],
+    "description": "Create a state"
+  },
+  "Import * as React": {
+    "prefix": "imr",
+    "body": ["import * as React from \"react\""],
+    "description": "Import * as React"
+  },
+  "React Functional Component": {
+    "prefix": "rfc",
+    "body": [
+      "interface ${1:ComponentName}Props {}",
+      "",
+      "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = () => {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "React Functional Component"
+  },
+  "React Export Functional Component": {
+    "prefix": "rfce",
+    "body": [
+      "export const ${1:ComponentName}: React.FC = () => {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "React Export Functional Component"
+  },
+  "React Functional Component with default export": {
+    "prefix": "rfcd",
+    "body": [
+      "interface ${1:ComponentName}Props {}",
+      "",
+      "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = () => {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default ${1:ComponentName};"
+    ],
+    "description": "React Functional Component with default export"
+  },
+  "Create a react-hook-form labeled input field": {
+    "prefix": "formfie",
+    "body": [
+      "<FormField",
+      "  control={form.control}",
+      "  name={$1}",
+      "  render={({ field }) => {",
+      "    return (",
+      "      <FormItem>",
+      "        <div className=\"grid grid-cols-[1fr_2fr] items-center\">",
+      "          <FormLabel className=\"justify-self-end\">",
+      "             $0",
+      "          </FormLabel>",
+      "          <FormControl>",
+      "            <Input",
+      "              className=\"\"",
+      "              {...getFieldProps($1)}",
+      "              {...field}",
+      "            />",
+      "          </FormControl>",
+      "          <FormMessage className=\"col-start-2\" />",
+      "        </div>",
+      "      </FormItem>",
+      "    );",
+      "  }}",
+      "/>"
+    ],
+    "description": "Create a react-hook-form labeled input field"
+  }
 }
