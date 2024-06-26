@@ -53,8 +53,18 @@ return {
   priority = 100,
   config = function()
     require("visual_studio_code").setup({
+      mode = "dark",
       dim_inactive = false,
-      transparent = true,
+      transparent = false,
+      expand = {
+        null_ls = true,
+        nvim_cmp = true,
+        lspconfig = true,
+        telescope = true,
+        bufferline = true,
+        nvim_treesitter = true,
+        vim_visual_multi = true,
+      },
     })
     vim.cmd("colorscheme visual_studio_code")
   end,

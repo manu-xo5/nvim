@@ -57,5 +57,10 @@ keymap("n", "<leader>tt", ":tab sb term<CR>")
 keymap("n", "<leader>tv", ":vs<CR>:b term<CR>")
 
 ---- better movement in insert mode ----
-keymap("i", "<c-h>", "<c-[><s-^>i", opts)
-keymap("i", "<c-l>", "<c-[><s-$>a", opts)
+keymap("i", "<c-k>", "<Up>", opts)
+keymap("i", "<c-j>", "<Down>", opts)
+
+-- keymap("i", "<c-h>", "<c-[>bi", opts)
+keymap("i", "<c-h>", "<C-Left>", opts)
+-- keymap("i", "<c-l>", "<c-[>lwi", opts)
+keymap("i", "<c-l>", "<C-Right>", opts)
