@@ -22,13 +22,6 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
-keymap("i", "<C-s>", "<cmd>:w<CR>", opts)
-
--- Buffer keymap
-keymap("n", "<C-H>", "<C-W><C-H>", opts)
-keymap("n", "<C-J>", "<C-W><C-J>", opts)
-keymap("n", "<C-K>", "<C-W><C-K>", opts)
-keymap("n", "<C-L>", "<C-W><C-L>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -51,16 +44,12 @@ keymap("x", ">", ">gv", opts)
 ---- emacs ----
 keymap("i", "<C-c>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
----- terminal ----
-keymap("t", "<Esc>", "<c-\\><c-n>")
-keymap("n", "<leader>tt", ":tab sb term<CR>")
-keymap("n", "<leader>tv", ":vs<CR>:b term<CR>")
-
 ---- better movement in insert mode ----
 keymap("i", "<c-k>", "<Up>", opts)
 keymap("i", "<c-j>", "<Down>", opts)
 
--- keymap("i", "<c-h>", "<c-[>bi", opts)
-keymap("i", "<c-h>", "<C-Left>", opts)
--- keymap("i", "<c-l>", "<c-[>lwi", opts)
-keymap("i", "<c-l>", "<C-Right>", opts)
+keymap("i", "<c-h>", "<c-[>bi", opts)
+keymap("i", "<c-l>", "<c-[>lea", opts)
+
+----- scratch pad --------
+keymap("n", "<leader>to", "<cmd>e ~/.config/nvim_scratch_pad<cr>", opts)
