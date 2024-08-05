@@ -32,7 +32,7 @@ vim.opt.signcolumn = "no"                       -- always show the sign column, 
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
-vim.opt.guifont = "JetBrainsMono Nerd Font:h10" -- the font used in graphical neovim applications
+vim.opt.guifont = "MonaspaceKrypton:h10" -- the font used in graphical neovim applications
 vim.opt.shortmess:append("c")                   -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.whichwrap:append("<,>,[,],h,l")         -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 -- vim.opt.iskeyword:append("(")               -- treats words with `-` as single words
