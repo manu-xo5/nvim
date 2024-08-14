@@ -41,6 +41,13 @@ vim.keymap.set("n", "<leader>.", vim.cmd.Ex, { silent = true, noremap = true })
 keymap("x", "<", "<gv", opts)
 keymap("x", ">", ">gv", opts)
 
+keymap("x", "e", "oeo", opts)
+keymap("x", "b", "obo", opts)
+keymap("x", "l", "olo", opts)
+keymap("x", "h", "oho", opts)
+keymap("x", "<s-e>", "o<s-e>o", opts)
+keymap("x", "<s-b>", "o<s-b>o", opts)
+
 ---- emacs ----
 keymap("i", "<C-c>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
