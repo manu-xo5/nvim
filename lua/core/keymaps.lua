@@ -50,6 +50,8 @@ keymap("x", "<s-b>", "o<s-b>o", opts)
 
 ---- emacs ----
 keymap("i", "<C-c>", "<Nop>", { noremap = true, silent = true, nowait = true })
+keymap("n", "<s-h>", "<Nop>", { noremap = true, silent = true, nowait = true })
+keymap("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
 ---- better movement in insert mode ----
 keymap("i", "<c-k>", "<Up>", opts)
