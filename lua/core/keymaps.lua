@@ -54,11 +54,8 @@ keymap("n", "<s-h>", "<Nop>", { noremap = true, silent = true, nowait = true })
 keymap("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
 ---- better movement in insert mode ----
-keymap("i", "<c-k>", "<Up>", opts)
-keymap("i", "<c-j>", "<Down>", opts)
-
-keymap("i", "<c-h>", "<c-[>bi", opts)
-keymap("i", "<c-l>", "<c-[>lea", opts)
+keymap("n", "<c-j>", "<c-e>j", opts)
+keymap("n", "<c-k>", "<c-y>k", opts)
 
 ----- scratch pad --------
 keymap("n", "<leader>to", "<cmd>e ~/.config/nvim_scratch_pad<cr>", opts)
