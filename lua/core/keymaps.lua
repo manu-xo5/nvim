@@ -57,5 +57,7 @@ keymap("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = true })
 keymap("n", "<c-j>", "<c-e>j", opts)
 keymap("n", "<c-k>", "<c-y>k", opts)
 
+keymap("n", "gn", "*ggn", opts)
+
 ----- scratch pad --------
 keymap("n", "<leader>to", "<cmd>e ~/.config/nvim_scratch_pad<cr>", opts)
