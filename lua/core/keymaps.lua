@@ -16,6 +16,8 @@ keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
 -- Better Window Navigation
+keymap("n", "k", "kzz", opts)
+keymap("n", "j", "jzz", opts)
 -- Window Keymap
 keymap("n", "<C-q>", "<C-w>q", opts)
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -58,6 +60,14 @@ keymap("n", "<c-j>", "<c-e>j", opts)
 keymap("n", "<c-k>", "<c-y>k", opts)
 
 keymap("n", "gn", "*ggn", opts)
+keymap("i", "<c-h>", "<c-[>bi", opts)
+keymap("i", "<c-l>", "<c-[>lea", opts)
+keymap({ "i", "n", "x", "v" }, "<Capslock>", "<c-[>", opts)
 
 ----- scratch pad --------
 keymap("n", "<leader>to", "<cmd>e ~/.config/nvim_scratch_pad<cr>", opts)
+
+---------
+
+keymap({ "n", "i" }, "<c-s>", "<cmd>:w<cr><cmd>:source %<cr>")
+keymap("n", "<leader>aa", require("core.smartsnips").SmartSnip)
