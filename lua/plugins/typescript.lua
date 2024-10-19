@@ -1,15 +1,14 @@
 return {
-  "jose-elias-alvarez/typescript.nvim",
-  ft = { "typescript", "typescriptreact", "typescript.tsx" },
-  keys = {
-    { "<leader>lR", vim.cmd.TypescriptRenameFile, desc="" },
-    { "<leader>oi", vim.cmd.TypescriptOrganizeImports, desc="" },
-    { "<leader>ai", vim.cmd.TypescriptAddMissingImports, desc="" },
-    { "<leader>ru", vim.cmd.TypescriptRemoveUnused, desc="" },
-  },
-  opts = {
-    server = {
-      capabilities = require("cmp_nvim_lsp").default_capabilities(),
-    },
-  },
+  "pmizio/typescript-tools.nvim",
+  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  opts = {},
+  config = function()
+    vim.keymap.set("n", "<leader>lR", vim.cmd.TSToolsRenameFile)
+
+    vim.keymap.set("n", "<leader>ai", vim.cmd.TSToolsAddMissingImports)
+
+    vim.keymap.set("n", "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports)
+
+    vim.keymap.set("n", "<leader>oi", vim.cmd.TSToolsOrganizeImports)
+  end,
 }
