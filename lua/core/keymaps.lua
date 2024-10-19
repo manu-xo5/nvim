@@ -69,5 +69,25 @@ keymap("n", "<leader>to", "<cmd>e ~/.config/nvim_scratch_pad<cr>", opts)
 
 ---------
 
+local ss = require("core.smartsnips")
 keymap({ "n", "i" }, "<c-s>", "<cmd>:w<cr><cmd>:source %<cr>")
-keymap("n", "<leader>aa", require("core.smartsnips").SmartSnip)
+keymap("n", "<leader>aa", ss.SmartSnip)
+keymap("n", "[m", function()
+	local node = ss.GoToFunctionDefination()
+	if not node then
+		return
+	end
+
+	local rowStart = node:range()
+	vim.cmd(":" .. (rowStart + 2))
+end)
+
+keymap("n", "]m", function()
+	local node = ss.GoToFunctionDefination()
+	if not node then
+		return
+	end
+
+	local _, _, rowEnd = node:range()
+	vim.cmd(":" .. rowEnd)
+end)
