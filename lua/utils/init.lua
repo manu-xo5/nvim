@@ -1,47 +1,45 @@
 local M = {}
 
 M.servers = {
-  "lua_ls",
-  "cssls",
-  "html",
-  "tsserver",
-  "bashls",
-  "jsonls",
-  "tailwindcss",
-  "eslint",
-  "prismals",
-  "rustls",
-  "gopls"
+	"lua_ls",
+	"cssls",
+	"html",
+	"bashls",
+	"jsonls",
+	"tailwindcss",
+	"eslint",
+	"prismals"
+	-- "rustls",
+	-- "gopls"
 }
 
 M.linters = {
-  "prettier",
-  "stylua",
+	"prettier",
+	"stylua",
 }
 
 M.parsers = {
-  "lua",
-  "vim",
-  "markdown",
-  "markdown_inline",
-  "latex",
-  "bash",
-  "python",
-  "cpp",
-  "c",
-  "java",
-  "javascript",
-  "typescript",
-  "tsx",
-  "html",
-  "css",
-  "json",
-  "yaml",
-  "toml",
-  "regex",
-  "go",
-  "rust",
-  "dockerfile",
+	"lua",
+	"vim",
+	"markdown",
+	"markdown_inline",
+	"bash",
+	"python",
+	"cpp",
+	"c",
+	"java",
+	"javascript",
+	"typescript",
+	"tsx",
+	"html",
+	"css",
+	"json",
+	"yaml",
+	"toml",
+	"regex",
+	"go",
+	"rust",
+	"dockerfile",
 }
 
 return M

@@ -55,25 +55,25 @@
 -- }
 
 -- return {
---   "askfiy/visual_studio_code",
---   priority = 100,
---   config = function()
---     require("visual_studio_code").setup({
---       mode = "dark",
---       dim_inactive = false,
---       transparent = false,
---       expand = {
---         null_ls = true,
---         nvim_cmp = true,
---         lspconfig = true,
---         telescope = true,
---         bufferline = true,
---         nvim_treesitter = true,
---         vim_visual_multi = true,
---       },
---     })
---     vim.cmd("colorscheme visual_studio_code")
---   end,
+-- 	"askfiy/visual_studio_code",
+-- 	priority = 100,
+-- 	config = function()
+-- 		require("visual_studio_code").setup({
+-- 			mode = "dark",
+-- 			dim_inactive = false,
+-- 			transparent = false,
+-- 			expand = {
+-- 				null_ls = true,
+-- 				nvim_cmp = true,
+-- 				lspconfig = true,
+-- 				telescope = true,
+-- 				bufferline = true,
+-- 				nvim_treesitter = true,
+-- 				vim_visual_multi = true,
+-- 			},
+-- 		})
+-- 		vim.cmd("colorscheme visual_studio_code")
+-- 	end,
 -- }
 
 -- return {
@@ -85,11 +85,29 @@
 -- 	end,
 -- }
 
+-- return {
+-- 	"tjdevries/colorbuddy.nvim",
+-- 	lazy = false,
+-- 	priority = 1000,
+-- 	config = function()
+-- 		vim.cmd.colorscheme("gruvbuddy")
+-- 	end,
+-- }
+
 return {
-	"tjdevries/colorbuddy.nvim",
-	lazy = false,
-	priority = 1000,
-	config = function()
-		vim.cmd.colorscheme("gruvbuddy")
+	"rose-pine/neovim",
+	name = "rose-pine",
+	config = function(
+)
+		require("rose-pine").setup({
+			dark_variant = "main", -- main, moon, or dawn
+			styles = {
+				bold = false,
+				italic = false,
+				transparency = true,
+			},
+		})
+
+		vim.cmd.colorscheme("rose-pine")
 	end,
 }
