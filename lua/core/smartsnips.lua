@@ -96,7 +96,7 @@ function M.GoToFunctionDefination()
 	end
 
 	while node do
-		if node:type() == "arrow_function" then
+		if node:type() == "arrow_function" or node:type() == "function_declaration" then
 			local query = vim.treesitter.query.parse(
 				"tsx",
 				[[
