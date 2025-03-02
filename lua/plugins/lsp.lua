@@ -1,104 +1,54 @@
 return {
-	"neovim/nvim-lspconfig",
+	"VonHeikemen/lsp-zero.nvim",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 	},
 	event = "BufReadPre",
 	config = function()
-		local lspconfig = require("lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local lspconfig_defaults = require("lspconfig").util.default_config
+		lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+			"force",
+			lspconfig_defaults.capabilities,
+			require("cmp_nvim_lsp").default_capabilities()
+		)
 
-		-- Setting up on_attach
-		local on_attach = function(client, bufnr)
-			local opts = { silent = true, buffer = bufnr }
+		-- This is where you enable features that only work
+		-- if there is a language server active in the file
+		vim.api.nvim_create_autocmd("LspAttach", {
+			desc = "LSP actions",
+			callback = function(event)
+				local opts = { buffer = event.buf }
 
-			-- Setting keymaps for lsp
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-			-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-			vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-			vim.keymap.set("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-			vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
-			vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
-			vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-			vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics<cr>", opts)
-			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
-			vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
-			vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, opts)
-			vim.keymap.set("n", "<m-s-f>", vim.lsp.buf.format, opts)
-			vim.keymap.set("n", "<leader>li", vim.cmd.LspInfo, opts)
-
-			-- Typescript specific settings
-			if client.name == "tsserver" then
-				client.server_capabilities.documentFormattingProvider = false
-			end
-
-			-- Eslint specific settings
-			if client.name == "eslint" then
-				vim.keymap.set("n", "<leader>le", vim.cmd.EslintFixAll, opts)
-			end
-		end
-
-		-- Setting up servers
-		for _, server in pairs(require("utils").servers) do
-			Opts = {
-				on_attach = on_attach,
-				capabilities = capabilities,
-			}
-
-			server = vim.split(server, "@")[1]
-			lspconfig[server].setup(Opts)
-		end
-
-		-- Setting up lua server
-		lspconfig.lua_ls.setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-					workspace = {
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.stdpath("config") .. "/lua"] = true,
-						},
-					},
-					telemetry = {
-						enable = false,
-					},
-				},
-			},
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+				vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
+				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+				vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+				vim.keymap.set("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+				vim.keymap.set({ "n", "x" }, "<leader>lf", function()
+					vim.lsp.buf.format({ async = true })
+				end, opts)
+				vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
+			end,
 		})
 
-		-- Setting rust analyzer server
-		lspconfig.rust_analyzer.setup({
-			on_attach = on_attach,
-			settings = {
-				["rust-analyzer"] = {
-					imports = {
-						granularity = {
-							group = "module",
-						},
-						prefix = "self",
-					},
-					cargo = {
-						buildScripts = {
-							enable = true,
-						},
-					},
-					procMacro = {
-						enable = true,
-					},
-				},
-			},
-		})
+		require("lspconfig").ts_ls.setup({})
 
-		require("typescript-tools").setup({
-			on_attach = on_attach,
+		local cmp = require("cmp")
+
+		cmp.setup({
+			sources = {
+				{ name = "nvim_lsp" },
+			},
+			snippet = {
+				expand = function(args)
+					-- You need Neovim v0.10 to use vim.snippet
+					vim.snippet.expand(args.body)
+				end,
+			},
+			mapping = cmp.mapping.preset.insert({}),
 		})
 	end,
 }

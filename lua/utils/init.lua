@@ -8,6 +8,7 @@ M.servers = {
 	"jsonls",
 	"tailwindcss",
 	"eslint",
+  "denols",
 	"prismals"
 	-- "rustls",
 	-- "gopls"

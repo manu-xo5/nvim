@@ -4,7 +4,6 @@ local keymap = vim.keymap.set
 local opts = { silent = true, noremap = true }
 
 --Map leader keys
-keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.b.maplocalleader = ";"
 
@@ -58,8 +57,8 @@ keymap("n", "<s-h>", "<Nop>", { noremap = true, silent = true, nowait = true })
 keymap("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
 ---- better movement in insert mode ----
-keymap("n", "<c-j>", "<c-e>j", opts)
-keymap("n", "<c-k>", "<c-y>k", opts)
+-- keymap("n", "<c-j>", "<c-e>j", opts)
+-- keymap("n", "<c-k>", "<c-y>k", opts)
 
 keymap("n", "gn", "*ggn", opts)
 keymap("i", "<c-h>", "<c-[>bi", opts)
