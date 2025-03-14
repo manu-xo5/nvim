@@ -37,9 +37,6 @@ vim.keymap.set("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = 
 
 keymap("n", "gn", "*ggn")
 
------ scratch pad --------
-keymap("n", "<leader>to", "<cmd>e ~/.config/nvim_scratch_pad<cr>")
-
 ---------
 
 -- local ss = require("core.smartsnips")
