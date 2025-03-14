@@ -1,5 +1,5 @@
 vim.opt.backup = false                          -- creates a backup file
--- vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
 vim.opt.showmode = true                         -- we don't need to see things like -- INSERT -- anymore
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
@@ -53,3 +53,10 @@ vim.opt.fillchars = {
   diff = " ", -- set diff character to a space
   msgsep = "‾", -- set message separator character to a horizontal bar
 }
+
+vim.g.netrw_banner = 0 -- disable that anoying Netrw banner
+vim.g.netrw_browser_split = 4 -- open in a prior window
+vim.g.netrw_altv = 1 -- open splits to the right
+vim.g.netrw_list_hide = "^\\./\\?$,^\\.\\./\\?$" -- hide ./ and ../
+
+vim.cmd("hi Statusline guibg=none")

@@ -1,0 +1,11 @@
+{
+  "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
+  "fzf-lua": { "branch": "main", "commit": "15d5cd9a74da7f8739030a5c411c046c70f66a60" },
+  "lazy.nvim": { "branch": "main", "commit": "460e1cd8f24e364d54543a4b0e83f6f4ec1f65fb" },
+  "mini.pick": { "branch": "main", "commit": "12ea14f8e285d1bcc909116685fdbb129a89d546" },
+  "neogit": { "branch": "master", "commit": "950d6f91529573dfd89b32c5fc55c52f72dee603" },
+  "nvim-treesitter": { "branch": "master", "commit": "ef52e44bb24161e5138b3de5beadab3f3fcff233" },
+  "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
+  "rose-pine": { "branch": "main", "commit": "d396005db5bbd1d4ec7772a7c96c96f4c4802328" },
+  "telescope.nvim": { "branch": "0.1.x", "commit": "eae0d8fbde590b0eaa2f9481948cd6fd7dd21656" }
+}

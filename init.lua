@@ -1,4 +1,4 @@
-require "core.options"
-require "core.keymaps"
-require "lazy-setup"
-require "core.autocommands"
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+require("config")

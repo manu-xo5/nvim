@@ -1,54 +1,116 @@
+local on_attach = function(_, bufnr)
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+  local keymap = vim.keymap.set
+  keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+  keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+  keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+  keymap("n", "K", vim.lsp.buf.hover, opts)
+  keymap("n", "gl", vim.diagnostic.open_float, opts)
+  keymap("n", "]d", vim.diagnostic.goto_next, opts)
+  keymap("n", "[d", vim.diagnostic.goto_prev, opts)
+  keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
+  keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
+  keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+  keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
+end
+
 return {
-	"VonHeikemen/lsp-zero.nvim",
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-	},
-	event = "BufReadPre",
-	config = function()
-		local lspconfig_defaults = require("lspconfig").util.default_config
-		lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-			"force",
-			lspconfig_defaults.capabilities,
-			require("cmp_nvim_lsp").default_capabilities()
-		)
+  "neovim/nvim-lspconfig",
 
-		-- This is where you enable features that only work
-		-- if there is a language server active in the file
-		vim.api.nvim_create_autocmd("LspAttach", {
-			desc = "LSP actions",
-			callback = function(event)
-				local opts = { buffer = event.buf }
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
 
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-				vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
-				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-				vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
-				vim.keymap.set("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-				vim.keymap.set({ "n", "x" }, "<leader>lf", function()
-					vim.lsp.buf.format({ async = true })
-				end, opts)
-				vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
-			end,
-		})
+    "nvimtools/none-ls.nvim",
+    "nvim-lua/plenary.nvim",
 
-		require("lspconfig").ts_ls.setup({})
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "saadparwaiz1/cmp_luasnip",
+  },
+  config = function()
+    -- setup lsp servers
+    require("mason").setup()
+    require("mason-lspconfig").setup({
+      ensure_installed = {
+        "html",
+        "cssls",
+        "bashls",
+        "tailwindcss",
+        "ts_ls",
+        "jsonls",
+        "prismals",
 
-		local cmp = require("cmp")
+        "lua_ls",
+      },
+      handlers = {
+        function (server_name)
+          require("lspconfig")[server_name].setup({
+            on_attach = on_attach,
+            capabilities = require("cmp_nvim_lsp").default_capabilities()
+          })
+        end,
 
-		cmp.setup({
-			sources = {
-				{ name = "nvim_lsp" },
-			},
-			snippet = {
-				expand = function(args)
-					-- You need Neovim v0.10 to use vim.snippet
-					vim.snippet.expand(args.body)
-				end,
-			},
-			mapping = cmp.mapping.preset.insert({}),
-		})
-	end,
+        ["lua_ls"] = function ()
+          require("lspconfig").lua_ls.setup({
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = {"vim"}
+                }
+              }
+            }
+          })
+        end
+      }
+    })
+
+    -- setup linters
+    local null_ls = require("null-ls")
+    local formatting = null_ls.builtins.formatting
+
+    null_ls.setup({
+      automatic_setup = true,
+      automatic_installation = true,
+      ensure_installed = {
+        "prettier",
+        "stylua",
+      },
+
+      debug = false,
+      sources = {
+        formatting.prettier,
+        formatting.stylua,
+      },
+    })
+
+
+    -- setup completion menu
+    local cmp = require("cmp")
+    cmp.setup({
+      -- snippet = {
+      -- 	expand = function(args)
+      -- 		require("luasnip").lsp_expand(args.body)
+      -- 	end,
+      -- },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+      mapping = cmp.mapping.preset.insert({
+        ["<CR>"] = cmp.mapping.confirm({ select = true, behaviour = cmp.ConfirmBehavior.Replace }),
+        ["<C-Space>"] = cmp.mapping.complete(), -- Ensure it's set up correctly
+      }),
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+      }),
+      experimental = {
+        ghost_text = false,
+        native_menu = false,
+      },
+    })
+  end
 }

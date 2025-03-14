@@ -1,10 +1,17 @@
 return {
-  "NeogitOrg/neogit",
-  dependencies = "nvim-lua/plenary.nvim",
+	"NeogitOrg/neogit",
+  cmd="Neogit",
+	dependencies = {
+		"nvim-lua/plenary.nvim",         -- required
+		"sindrets/diffview.nvim",        -- optional - Diff integration
+
+		-- Only one of these is needed.
+		"nvim-telescope/telescope.nvim", -- optional
+		"ibhagwan/fzf-lua",              -- optional
+		"echasnovski/mini.pick",         -- optional
+	},
   keys = {
-    { "<leader>G", "<cmd>Neogit<CR>", desc = "Open neogit" },
+    { "<leader><s-g>", ":Neogit kind=floating<CR>" }
   },
-  opts = {
-    use_magit_keybindings = true,
-  },
+	config = true
 }
