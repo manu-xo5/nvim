@@ -11,7 +11,7 @@ return {
 		"echasnovski/mini.pick",         -- optional
 	},
   keys = {
-    { "<leader><s-g>", ":Neogit kind=floating<CR>" }
+    { "<leader>G", ":Neogit kind=floating<CR>" }
   },
 	config = true
 }
