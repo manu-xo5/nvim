@@ -1,5 +1,5 @@
 local defaultConfig = function()
-	vim.cmd("colorscheme mellifluous")
+	vim.cmd("colorscheme habamax.nvim")
 end
 
 return {
@@ -39,6 +39,12 @@ return {
 			dim_inactive = false,
 			color_set = "mountain",
 		},
+		config = defaultConfig,
+	},
+	{
+		"ntk148v/habamax.nvim",
+		dependencies = { "rktjmp/lush.nvim" },
+		opts = {},
 		config = defaultConfig,
 	},
 }
