@@ -5,10 +5,10 @@ return {
     "neovim/nvim-lspconfig"
   },
   keys = {
-    {"n", "<leader>lR", vim.cmd.TSToolsRenameFile},
-    {"n", "<leader>ai", vim.cmd.TSToolsAddMissingImports},
-    {"n", "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports},
-    {"n", "<leader>oi", vim.cmd.TSToolsOrganizeImports},
+    {"<leader>lR", vim.cmd.TSToolsRenameFile},
+    {"<leader>ai", vim.cmd.TSToolsAddMissingImports},
+    {"<leader>ru", vim.cmd.TSToolsRemoveUnusedImports},
+    {"<leader>oi", vim.cmd.TSToolsOrganizeImports},
   },
 }
 
