@@ -1,5 +1,5 @@
 local defaultConfig = function()
-	vim.cmd("colorscheme habamax.nvim")
+	vim.cmd.colorscheme("everforest")
 end
 
 return {
@@ -46,5 +46,15 @@ return {
 		dependencies = { "rktjmp/lush.nvim" },
 		opts = {},
 		config = defaultConfig,
+	},
+	{
+		"sainnhe/everforest",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.g.everforest_background = "hard"
+			vim.g.everforest_transparent_background = true
+			defaultConfig()
+		end,
 	},
 }
