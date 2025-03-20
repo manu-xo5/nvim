@@ -4,12 +4,6 @@ return {
 		"nvim-lua/plenary.nvim",
 		"neovim/nvim-lspconfig",
 	},
-	keys = {
-		{ "<leader>lR", vim.cmd.TSToolsRenameFile },
-		{ "<leader>ai", vim.cmd.TSToolsAddMissingImports },
-		{ "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports },
-		{ "<leader>oi", vim.cmd.TSToolsOrganizeImports },
-	},
 	config = function()
 		require("typescript-tools").setup({
 			on_attach = function(client)
@@ -17,5 +11,10 @@ return {
 				client.server_capabilities.documentRangeFormattingProvider = false
 			end,
 		})
+
+		vim.keymap.set("n", "<leader>lR", vim.cmd.TSToolsRenameFile)
+		vim.keymap.set("n", "<leader>ai", vim.cmd.TSToolsAddMissingImports)
+		vim.keymap.set("n", "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports)
+		vim.keymap.set("n", "<leader>oi", vim.cmd.TSToolsOrganizeImports)
 	end,
 }
