@@ -30,6 +30,14 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 	},
 	config = function()
+		local cmp_lsp = require("cmp_nvim_lsp")
+		local capabilities = vim.tbl_deep_extend(
+			"force",
+			{},
+			vim.lsp.protocol.make_client_capabilities(),
+			cmp_lsp.default_capabilities()
+		)
+
 		-- setup lsp servers
 		require("mason").setup()
 		require("mason-lspconfig").setup({
@@ -42,19 +50,29 @@ return {
 				"jsonls",
 				"prismals",
 
+				"rust_analyzer",
 				"lua_ls",
 			},
 			handlers = {
 				function(server_name)
 					require("lspconfig")[server_name].setup({
 						on_attach = on_attach,
-						capabilities = require("cmp_nvim_lsp").default_capabilities(),
+						capabilities = capabilities,
 					})
 				end,
+
+				-- ["rust_analyzer"] = function()
+				-- 	require("lspconfig").rust_analyzer.setup({
+				-- 		on_attach = on_attach,
+				-- 		capabilities = capabilities,
+				-- 		filetypes = { "rust" },
+				-- 	})
+				-- end,
 
 				["lua_ls"] = function()
 					require("lspconfig").lua_ls.setup({
 						on_attach = on_attach,
+						capabilities = capabilities,
 						settings = {
 							Lua = {
 								diagnostics = {
