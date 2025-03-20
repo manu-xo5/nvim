@@ -20,9 +20,11 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+		"nvim-lua/plenary.nvim",
 
 		"nvimtools/none-ls.nvim",
-		"nvim-lua/plenary.nvim",
+
+		"pmizio/typescript-tools.nvim",
 
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-nvim-lsp",
@@ -59,6 +61,22 @@ return {
 						on_attach = on_attach,
 						capabilities = capabilities,
 					})
+				end,
+
+				["ts_ls"] = function()
+					-- typescript-tools will call `require("lspconfig").ts_ls.setup({})`
+					require("typescript-tools").setup({
+						on_attach = function(client, bufnr)
+							client.server_capabilities.documentFormattingProvider = false
+							client.server_capabilities.documentRangeFormattingProvider = false
+							on_attach(client, bufnr)
+						end,
+					})
+
+					vim.keymap.set("n", "<leader>lR", vim.cmd.TSToolsRenameFile)
+					vim.keymap.set("n", "<leader>ai", vim.cmd.TSToolsAddMissingImports)
+					vim.keymap.set("n", "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports)
+					vim.keymap.set("n", "<leader>oi", vim.cmd.TSToolsOrganizeImports)
 				end,
 
 				-- ["rust_analyzer"] = function()
