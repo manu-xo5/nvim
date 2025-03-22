@@ -1,5 +1,5 @@
 local defaultConfig = function()
-	vim.cmd.colorscheme("everforest")
+	vim.cmd.colorscheme("default")
 end
 
 return {
