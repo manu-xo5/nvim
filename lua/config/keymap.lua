@@ -36,29 +36,3 @@ vim.keymap.set("n", "<s-h>", "<Nop>", { noremap = true, silent = true, nowait = 
 vim.keymap.set("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
 keymap("n", "gn", "*ggn")
-
----------
-
--- local ss = require("core.smartsnips")
--- keymap({ "n", "i" }, "<c-s>", "<cmd>:w<cr><cmd>:source %<cr>")
--- keymap("n", "<leader>aa", ss.SmartSnip)
--- keymap("n", "[m", function()
--- 	local node = ss.GoToFunctionDefination()
--- 	if not node then
--- 		return
--- 	end
---
--- 	local rowStart = node:range()
--- 	vim.cmd(":" .. (rowStart + 2))
--- end)
---
--- keymap("n", "]m", function()
--- 	local node = ss.GoToFunctionDefination()
--- 	if not node then
--- 		return
--- 	end
---
--- 	local _, _, rowEnd = node:range()
--- 	vim.cmd(":" .. rowEnd)
--- end)
---
