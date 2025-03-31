@@ -1,5 +1,7 @@
 local defaultConfig = function()
-	vim.cmd.colorscheme("default")
+	vim.cmd.colorscheme("gruvbox-baby")
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 return {
@@ -56,5 +58,11 @@ return {
 			vim.g.everforest_transparent_background = true
 			defaultConfig()
 		end,
+	},
+	{
+		"luisiacc/gruvbox-baby",
+		lazy = false,
+		priority = 1000,
+		config = defaultConfig,
 	},
 }
