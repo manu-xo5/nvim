@@ -1,7 +1,7 @@
 local on_attach = function(_, bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 	local keymap = vim.keymap.set
-	keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+	keymap("n", "gd", vim.lsp.buf.definition, opts)
 	keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 	keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 	keymap("n", "K", vim.lsp.buf.hover, opts)
@@ -11,7 +11,7 @@ local on_attach = function(_, bufnr)
 	keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
 	keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
 	keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
-	keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
+	keymap("n", "<m-s-f>", vim.lsp.buf.format, opts)
 end
 
 return {
@@ -78,14 +78,6 @@ return {
 					vim.keymap.set("n", "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports)
 					vim.keymap.set("n", "<leader>oi", vim.cmd.TSToolsOrganizeImports)
 				end,
-
-				-- ["rust_analyzer"] = function()
-				-- 	require("lspconfig").rust_analyzer.setup({
-				-- 		on_attach = on_attach,
-				-- 		capabilities = capabilities,
-				-- 		filetypes = { "rust" },
-				-- 	})
-				-- end,
 
 				["lua_ls"] = function()
 					require("lspconfig").lua_ls.setup({
