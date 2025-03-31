@@ -45,6 +45,7 @@ vim.opt.wildmenu = true                -- completion of commands
 vim.opt.wildignorecase = true          -- case insensitive completion
 vim.opt.wildmode = "longest,full,full" -- how the completion is done
 vim.o.guicursor = "i:hor20-Cursor/lCursor"                                   -- disable cursor dynamic behavior
+vim.o.cmdheight = 0
 vim.opt.wildignore =
 ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**"
 vim.opt.fillchars = {
