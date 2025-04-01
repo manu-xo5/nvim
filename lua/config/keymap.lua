@@ -34,4 +34,10 @@ vim.keymap.set("i", "<C-c>", "<Nop>", { noremap = true, silent = true, nowait = 
 vim.keymap.set("n", "<s-h>", "<Nop>", { noremap = true, silent = true, nowait = true })
 vim.keymap.set("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = true })
 
+------ tsc -------
+keymap("n", "<leader>lc", function()
+	vim.cmd.compiler("tsc")
+	vim.opt_local.makeprg = "pnpm typecheck"
+	vim.cmd.make()
+end)
 keymap("n", "gn", "*ggn")
