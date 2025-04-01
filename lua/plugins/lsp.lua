@@ -75,8 +75,7 @@ return {
 
 					vim.keymap.set("n", "<leader>lR", vim.cmd.TSToolsRenameFile)
 					vim.keymap.set("n", "<leader>ai", vim.cmd.TSToolsAddMissingImports)
-					vim.keymap.set("n", "<leader>ru", vim.cmd.TSToolsRemoveUnusedImports)
-					vim.keymap.set("n", "<leader>oi", vim.cmd.TSToolsOrganizeImports)
+					vim.keymap.set("n", "<m-s-o>", vim.cmd.TSToolsOrganizeImports)
 				end,
 
 				["lua_ls"] = function()
@@ -117,11 +116,6 @@ return {
 		-- setup completion menu
 		local cmp = require("cmp")
 		cmp.setup({
-			-- snippet = {
-			-- 	expand = function(args)
-			-- 		require("luasnip").lsp_expand(args.body)
-			-- 	end,
-			-- },
 			window = {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
