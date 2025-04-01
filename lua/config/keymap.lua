@@ -1,8 +1,7 @@
 local opts = { silent = true, noremap = true }
-local keymap = function (mode, keymap, cmd)
+local keymap = function(mode, keymap, cmd)
 	vim.keymap.set(mode, keymap, cmd, opts)
 end
-
 
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
