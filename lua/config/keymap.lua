@@ -6,9 +6,6 @@ end
 keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
--- Better Window Navigation
-keymap("n", "k", "kzt")
-keymap("n", "j", "jzt")
 -- Window Keymap
 keymap("n", "<C-q>", "<C-w>q")
 keymap("n", "<C-h>", "<C-w>h")
@@ -20,9 +17,6 @@ keymap("n", "<C-w>t", ":tabnew<cr>")
 -- Netrw
 vim.keymap.set("n", "<leader>.", vim.cmd.Ex, { silent = true, noremap = true })
 
-------------- Visual Mode -------------
-keymap("v", "J", ":m '>+1<CR>gv=gv")
-keymap("v", "K", ":m '>-2<CR>gv=gv")
 -- Stay in indent mode
 keymap("x", "<", "<gv")
 keymap("x", ">", ">gv")
