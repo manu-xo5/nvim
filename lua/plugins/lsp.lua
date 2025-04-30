@@ -1,138 +1,181 @@
-local on_attach = function(_, bufnr)
-	local opts = { noremap = true, silent = true, buffer = bufnr }
-	local keymap = vim.keymap.set
-	keymap("n", "gd", vim.lsp.buf.definition, opts)
-	keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-	keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
-	keymap("n", "K", vim.lsp.buf.hover, opts)
-	keymap("n", "gl", vim.diagnostic.open_float, opts)
-	keymap("n", "]d", vim.diagnostic.goto_next, opts)
-	keymap("n", "[d", vim.diagnostic.goto_prev, opts)
-	keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
-	keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
-	keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
-	keymap("n", "<m-s-f>", vim.lsp.buf.format, opts)
+local customizations = {
+  { rule = 'style/*',   severity = 'off', fixable = true },
+  { rule = 'format/*',  severity = 'off', fixable = true },
+  { rule = '*-indent',  severity = 'off', fixable = true },
+  { rule = '*-spacing', severity = 'off', fixable = true },
+  { rule = '*-spaces',  severity = 'off', fixable = true },
+  { rule = '*-order',   severity = 'off', fixable = true },
+  { rule = '*-dangle',  severity = 'off', fixable = true },
+  { rule = '*-newline', severity = 'off', fixable = true },
+  { rule = '*quotes',   severity = 'off', fixable = true },
+  { rule = '*semi',     severity = 'off', fixable = true },
+}
+
+local opts = { noremap = true, silent = true, buffer = bufnr }
+local keymap = vim.keymap.set
+
+local on_attach = function(_, _bufnr)
+  keymap("n", "gd", vim.lsp.buf.definition, opts)
+  keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+  keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+  keymap("n", "K", vim.lsp.buf.hover, opts)
+  keymap("n", "gl", vim.diagnostic.open_float, opts)
+  keymap("n", "]d", vim.diagnostic.goto_next, opts)
+  keymap("n", "[d", vim.diagnostic.goto_prev, opts)
+  keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
+  keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
+  keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+  keymap("n", "<m-s-f>", vim.lsp.buf.format, opts)
 end
 
 return {
-	"neovim/nvim-lspconfig",
+  "neovim/nvim-lspconfig",
 
-	dependencies = {
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"nvim-lua/plenary.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "nvim-lua/plenary.nvim",
 
-		"nvimtools/none-ls.nvim",
+    "nvimtools/none-ls.nvim",
 
-		"pmizio/typescript-tools.nvim",
+    "pmizio/typescript-tools.nvim",
 
-		"hrsh7th/nvim-cmp",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"saadparwaiz1/cmp_luasnip",
-	},
-	config = function()
-		local cmp_lsp = require("cmp_nvim_lsp")
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			cmp_lsp.default_capabilities()
-		)
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "saadparwaiz1/cmp_luasnip",
+  },
+  config = function()
+    local util = require("lspconfig.util")
+    local cmp_lsp = require("cmp_nvim_lsp")
+    local capabilities = vim.tbl_deep_extend(
+      "force",
+      {},
+      vim.lsp.protocol.make_client_capabilities(),
+      cmp_lsp.default_capabilities()
+    )
 
-		-- setup lsp servers
-		require("mason").setup()
-		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"html",
-				"cssls",
-				"bashls",
-				"tailwindcss",
-				"ts_ls",
-				"jsonls",
-				"prismals",
+    -- setup lsp servers
+    require("mason").setup()
+    require("mason-lspconfig").setup({
+      ensure_installed = {
+        "html",
+        "cssls",
+        "bashls",
+        "tailwindcss",
+        "ts_ls",
+        "jsonls",
+        "eslint",
+        "prismals",
 
-				"rust_analyzer",
-				"lua_ls",
-			},
-			handlers = {
-				function(server_name)
-					require("lspconfig")[server_name].setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-					})
-				end,
+        "rust_analyzer",
+        "lua_ls",
+      },
+      handlers = {
+        function(server_name)
+          require("lspconfig")[server_name].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+          })
+        end,
 
-				["ts_ls"] = function()
-					-- typescript-tools will call `require("lspconfig").ts_ls.setup({})`
-					require("typescript-tools").setup({
-						on_attach = function(client, bufnr)
-							client.server_capabilities.documentFormattingProvider = false
-							client.server_capabilities.documentRangeFormattingProvider = false
-							on_attach(client, bufnr)
-						end,
-					})
+        ["ts_ls"] = function()
+          -- typescript-tools will call `require("lspconfig").ts_ls.setup({})`
+          require("typescript-tools").setup({
+            on_attach = function(client, bufnr)
+              client.server_capabilities.documentFormattingProvider = false
+              client.server_capabilities.documentRangeFormattingProvider = false
+              on_attach(client, bufnr)
 
-					vim.keymap.set("n", "<leader>lR", vim.cmd.TSToolsRenameFile)
-					vim.keymap.set("n", "<leader>ai", vim.cmd.TSToolsAddMissingImports)
-					vim.keymap.set("n", "<m-s-o>", vim.cmd.TSToolsOrganizeImports)
-				end,
+              vim.keymap.set("n", "<leader>lR", vim.cmd.TSToolsRenameFile)
+              vim.keymap.set("n", "<leader>ai", vim.cmd.TSToolsAddMissingImports)
+              vim.keymap.set("n", "<m-s-o>", vim.cmd.TSToolsOrganizeImports)
+            end,
+          })
+        end,
 
-				["lua_ls"] = function()
-					require("lspconfig").lua_ls.setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								diagnostics = {
-									globals = { "vim" },
-								},
-							},
-						},
-					})
-				end,
-			},
-		})
+        ["lua_ls"] = function()
+          require("lspconfig").lua_ls.setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
+              },
+            },
+          })
+        end,
+        ["eslint"] = function()
+          require("lspconfig").eslint.setup(
+            {
+              filetypes = {
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+                "typescript",
+                "typescriptreact",
+                "typescript.tsx",
+                "html",
+                "astro",
+                "svelte",
+                "css",
+              },
+              settings = {
+                rulesCustomizations = customizations,
+              },
+              on_attach = function(_, bufnr)
+                keymap("n", "<m-s-f>", "<cmd>EslintFixAll<cr>")
+              end
+            }
+          )
+        end,
 
-		-- setup linters
-		local null_ls = require("null-ls")
-		local formatting = null_ls.builtins.formatting
+      },
+    })
 
-		null_ls.setup({
-			automatic_setup = true,
-			automatic_installation = true,
-			ensure_installed = {
-				"prettier",
-				"stylua",
-			},
+    -- setup linters
+    -- local null_ls = require("null-ls")
+    -- local formatting = null_ls.builtins.formatting
+    --
+    -- null_ls.setup({
+    --   automatic_setup = true,
+    --   automatic_installation = true,
+    --   ensure_installed = {
+    --     "eslint_d",
+    --     "prettier",
+    --   },
+    --
+    --   debug = false,
+    --   sources = {
+    --     formatting.prettier
+    --   },
+    -- })
 
-			debug = false,
-			sources = {
-				formatting.prettierd,
-				formatting.stylua,
-			},
-		})
+    -- setup eslint
 
-		-- setup completion menu
-		local cmp = require("cmp")
-		cmp.setup({
-			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
-			},
-			mapping = cmp.mapping.preset.insert({
-				["<CR>"] = cmp.mapping.confirm({ select = true, behaviour = cmp.ConfirmBehavior.Replace }),
-				["<C-Space>"] = cmp.mapping.complete(), -- Ensure it's set up correctly
-			}),
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-			}),
-			experimental = {
-				ghost_text = false,
-				native_menu = false,
-			},
-		})
-	end,
+
+    -- setup completion menu
+    local cmp = require("cmp")
+    cmp.setup({
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+      mapping = cmp.mapping.preset.insert({
+        ["<CR>"] = cmp.mapping.confirm({ select = true, behaviour = cmp.ConfirmBehavior.Replace }),
+        ["<C-Space>"] = cmp.mapping.complete(), -- Ensure it's set up correctly
+      }),
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+      }),
+      experimental = {
+        ghost_text = false,
+        native_menu = false,
+      },
+    })
+  end,
 }

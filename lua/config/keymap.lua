@@ -3,14 +3,12 @@ local keymap = function(mode, keymap, cmd)
 	vim.keymap.set(mode, keymap, cmd, opts)
 end
 
-keymap("n", "<C-d>", "<C-d>zz")
-keymap("n", "<C-u>", "<C-u>zz")
 keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
 -- Better Window Navigation
-keymap("n", "k", "kzz")
-keymap("n", "j", "jzz")
+keymap("n", "k", "kzt")
+keymap("n", "j", "jzt")
 -- Window Keymap
 keymap("n", "<C-q>", "<C-w>q")
 keymap("n", "<C-h>", "<C-w>h")
@@ -41,3 +39,6 @@ keymap("n", "<leader>lc", function()
 	vim.cmd.make()
 end)
 keymap("n", "gn", "*ggn")
+
+keymap("n", "[c", ":cprev<cr>")
+keymap("n", "]c", ":cnext<cr>")
