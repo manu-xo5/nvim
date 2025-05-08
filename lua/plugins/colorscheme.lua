@@ -1,16 +1,19 @@
 local defaultConfig = function()
   vim.o.background = "dark"
-  vim.cmd.colorscheme("visual_studio_code")
+  vim.cmd.colorscheme("gruvbox-baby")
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  vim.api.nvim_set_hl(0, "StatusLine", { bg = "#333333" })
+  -- vim.api.nvim_set_hl(0, "StatusLine", { bg = "#333333" })
 end
 
 return {
   {
+    "joshdick/onedark.vim",
+  },
+  {
+    "maxmx03/solarized.nvim",
+  },
+  {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
   },
   {
     "askfiy/visual_studio_code",
@@ -29,12 +32,6 @@ return {
         vim_visual_multi = true,
       },
     },
-    config = defaultConfig,
-  },
-  {
-    "tjdevries/colorbuddy.nvim",
-    lazy = false,
-    priority = 1000,
     config = defaultConfig,
   },
   {

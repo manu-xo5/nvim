@@ -6,9 +6,6 @@ end
 keymap("n", "n", "nzzzv")
 keymap("n", "N", "Nzzzv")
 
--- Better Window Navigation
-keymap("n", "k", "kzt")
-keymap("n", "j", "jzt")
 -- Window Keymap
 keymap("n", "<C-q>", "<C-w>q")
 keymap("n", "<C-h>", "<C-w>h")

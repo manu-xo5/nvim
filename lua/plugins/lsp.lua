@@ -11,11 +11,11 @@ local customizations = {
   { rule = '*semi',     severity = 'off', fixable = true },
 }
 
-local opts = { noremap = true, silent = true, buffer = bufnr }
+local opts = { noremap = true, silent = true }
 local keymap = vim.keymap.set
 
 local on_attach = function(_, _bufnr)
-  keymap("n", "gd", vim.lsp.buf.definition, opts)
+  keymap("n", "gd", "<c-]>", opts)
   keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
   keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
   keymap("n", "K", vim.lsp.buf.hover, opts)
@@ -25,15 +25,17 @@ local on_attach = function(_, _bufnr)
   keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
   keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
   keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+  keymap("n", "<leader>fs", "<cmd>Telescope lsp_workspace_symbols<CR>", opts)
   keymap("n", "<m-s-f>", vim.lsp.buf.format, opts)
+
 end
 
 return {
-  "neovim/nvim-lspconfig",
-
+  "mason-org/mason-lspconfig.nvim",
+  branch = "v1.x",
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+    "mason-org/mason.nvim",
     "nvim-lua/plenary.nvim",
 
     "nvimtools/none-ls.nvim",
@@ -46,7 +48,6 @@ return {
     "saadparwaiz1/cmp_luasnip",
   },
   config = function()
-    local util = require("lspconfig.util")
     local cmp_lsp = require("cmp_nvim_lsp")
     local capabilities = vim.tbl_deep_extend(
       "force",
@@ -71,6 +72,8 @@ return {
         "rust_analyzer",
         "lua_ls",
       },
+      automatic_enable = true,
+
       handlers = {
         function(server_name)
           require("lspconfig")[server_name].setup({
@@ -126,7 +129,7 @@ return {
                 rulesCustomizations = customizations,
               },
               on_attach = function(_, bufnr)
-                keymap("n", "<m-s-f>", "<cmd>EslintFixAll<cr>")
+                -- keymap("n", "<m-s-f>", "<cmd>EslintFixAll<cr>")
               end
             }
           )
@@ -136,25 +139,22 @@ return {
     })
 
     -- setup linters
-    -- local null_ls = require("null-ls")
-    -- local formatting = null_ls.builtins.formatting
-    --
-    -- null_ls.setup({
-    --   automatic_setup = true,
-    --   automatic_installation = true,
-    --   ensure_installed = {
-    --     "eslint_d",
-    --     "prettier",
-    --   },
-    --
-    --   debug = false,
-    --   sources = {
-    --     formatting.prettier
-    --   },
-    -- })
+    local null_ls = require("null-ls")
+    local formatting = null_ls.builtins.formatting
 
-    -- setup eslint
+    null_ls.setup({
+      automatic_setup = true,
+      automatic_installation = true,
+      ensure_installed = {
+        "prettier",
+        "stylua"
+      },
 
+      debug = false,
+      sources = {
+        formatting.prettier
+      },
+    })
 
     -- setup completion menu
     local cmp = require("cmp")
