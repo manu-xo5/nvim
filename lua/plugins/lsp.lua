@@ -27,7 +27,6 @@ local on_attach = function(_, _bufnr)
   keymap("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
   keymap("n", "<leader>fs", "<cmd>Telescope lsp_workspace_symbols<CR>", opts)
   keymap("n", "<m-s-f>", vim.lsp.buf.format, opts)
-
 end
 
 return {
@@ -48,6 +47,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
   },
   config = function()
+    local lspconfig = require("lspconfig")
     local cmp_lsp = require("cmp_nvim_lsp")
     local capabilities = vim.tbl_deep_extend(
       "force",
@@ -65,6 +65,7 @@ return {
         "bashls",
         "tailwindcss",
         "ts_ls",
+        "denols",
         "jsonls",
         "eslint",
         "prismals",
@@ -85,6 +86,17 @@ return {
         ["ts_ls"] = function()
           -- typescript-tools will call `require("lspconfig").ts_ls.setup({})`
           require("typescript-tools").setup({
+            root_dir = function(fname)
+              if lspconfig.util.root_pattern("deno.json", "deno.jsonc")(fname) then
+                print("its a deno root")
+                return nil
+              end
+
+              print("its not a deno root")
+              return lspconfig.util.root_pattern("tsconfig.json")(fname)
+            end,
+            single_file_support = false,
+
             on_attach = function(client, bufnr)
               client.server_capabilities.documentFormattingProvider = false
               client.server_capabilities.documentRangeFormattingProvider = false
@@ -96,9 +108,15 @@ return {
             end,
           })
         end,
-
+        ["denols"] = function()
+          lspconfig.denols.setup({
+            on_attach = on_attach,
+            single_file_support = false,
+            root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
+          })
+        end,
         ["lua_ls"] = function()
-          require("lspconfig").lua_ls.setup({
+          lspconfig.lua_ls.setup({
             on_attach = on_attach,
             capabilities = capabilities,
             settings = {
@@ -128,8 +146,9 @@ return {
               settings = {
                 rulesCustomizations = customizations,
               },
-              on_attach = function(_, bufnr)
-                -- keymap("n", "<m-s-f>", "<cmd>EslintFixAll<cr>")
+              root_dir = lspconfig.util.root_pattern("eslint.config.mjs", "eslint.config.js", "eslint.config.ts"),
+              on_attach = function()
+                keymap("n", "<m-s-f>", "<cmd>EslintFixAll<cr>")
               end
             }
           )
