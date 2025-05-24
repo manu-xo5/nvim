@@ -9,6 +9,10 @@ keymap("n", "N", "Nzzzv")
 keymap("i", "jk", "<c-[>")
 keymap("i", "kj", "<c-[>")
 
+keymap("n", "yaw", "mzyaw`z")
+keymap("n", "ya(", "mzya(`z")
+keymap("n", "ya(", "mzya(`z")
+
 -- Window Keymap
 keymap("n", "<C-q>", "<C-w>q")
 keymap("n", "<C-h>", "<C-w>h")

@@ -1,3 +1,14 @@
+function _G.custom_tagFunc(pattern, flags)
+  local ok, results = pcall(vim.lsp.tagfunc, pattern, flags)
+  if ok and type(results) == "table" and #results > 0 then
+    return results
+  end
+  -- fallback to ctags or buffer search
+  return vim.fn.taglist(pattern)
+end
+
+vim.opt.tagfunc = "v:lua.custom_tagFunc"
+
 local customizations = {
   { rule = 'style/*',   severity = 'off', fixable = true },
   { rule = 'format/*',  severity = 'off', fixable = true },
@@ -88,11 +99,9 @@ return {
           require("typescript-tools").setup({
             root_dir = function(fname)
               if lspconfig.util.root_pattern("deno.json", "deno.jsonc")(fname) then
-                print("its a deno root")
                 return nil
               end
 
-              print("its not a deno root")
               return lspconfig.util.root_pattern("tsconfig.json")(fname)
             end,
             single_file_support = false,
