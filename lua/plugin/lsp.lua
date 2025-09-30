@@ -6,6 +6,7 @@ local signs = {
 		[vim.diagnostic.severity.HINT] = "󰌶 ",
 	},
 }
+
 vim.diagnostic.config({
 	severity_sort = true,
 	float = { border = "rounded", source = "if_many" },
@@ -13,14 +14,7 @@ vim.diagnostic.config({
 	signs = signs,
 	virtual_text = true,
 })
-
-local on_attach = function(event)
-	local opts = { buffer = event.buf }
-	vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
-	vim.keymap.set({ "n", "x" }, "<leader>la", vim.lsp.buf.code_action, opts)
-	vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-end
+vim.keymap.set("n", "gl", vim.diagnostic.open_float)
 
 return {
 	"neovim/nvim-lspconfig",
@@ -33,11 +27,6 @@ return {
 		"saghen/blink.cmp",
 	},
 	config = function()
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
-			callback = on_attach,
-		})
-
 		local servers = require("custom.lsp-server-config")
 
 		require("mason-tool-installer").setup({

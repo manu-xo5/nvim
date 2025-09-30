@@ -6,6 +6,8 @@ M.eslint = {}
 
 M.stylua = {}
 
+M.tailwindcss = {}
+
 M.lua_ls = {
 	settings = {
 		Lua = {
