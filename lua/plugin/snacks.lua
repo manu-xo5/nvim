@@ -26,12 +26,15 @@ return {
 			},
 
 			picker = { enabled = true },
+			rename = { enabled = true },
 		})
 
 		vim.keymap.set("n", "<leader>ff", snacks.picker.files, { desc = "Find Files (Snacks Picker)" })
 		vim.keymap.set("n", "<leader>ft", snacks.picker.grep, { desc = "Grep word" })
 		vim.keymap.set("n", "<leader>fb", snacks.picker.git_branches, { desc = "Pick and Switch Git Branches" })
 		vim.keymap.set("n", "<leader>fc", snacks.picker.colorschemes, { desc = "Pick Color Schemes" })
+
+		vim.keymap.set("n", "grN", snacks.rename.rename_file, { desc = "Rename current file" })
 	end,
 	opts = {},
 }
