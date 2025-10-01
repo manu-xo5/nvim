@@ -1,10 +1,10 @@
 local opts = { silent = true, noremap = true }
 local keymap = function(mode, keymap, cmd)
-  vim.keymap.set(mode, keymap, cmd, opts)
+	vim.keymap.set(mode, keymap, cmd, opts)
 end
 
-keymap("i", "jk", "<c-[>")
-keymap("i", "kj", "<c-[>")
+keymap("i", "jk", "<c-[>", { noremap = true, silent = true, nowait = true })
+keymap("i", "kj", "<c-[>", { noremap = true, silent = true, nowait = true })
 
 -- Window Keymap
 keymap("n", "<C-q>", "<C-w>q")
@@ -28,13 +28,13 @@ vim.keymap.set("n", "<s-l>", "<Nop>", { noremap = true, silent = true, nowait = 
 
 ------ tsc -------
 keymap("n", "<leader>lc", function()
-  vim.cmd.compiler("tsc")
-  vim.opt_local.makeprg = "pnpm typecheck"
-  vim.cmd.make()
+	vim.cmd.compiler("tsc")
+	vim.opt_local.makeprg = "pnpm typecheck"
+	vim.cmd.make()
 end)
 keymap("n", "gn", "*ggn")
 
-keymap("n", "[c", ":cprev<cr>")
-keymap("n", "]c", ":cnext<cr>")
+keymap("n", "<Up>", ":cprev<cr>")
+keymap("n", "<Down>", ":cnext<cr>")
 
 return {}

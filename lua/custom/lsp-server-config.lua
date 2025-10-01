@@ -1,6 +1,6 @@
 local M = {}
 
-M.ts_ls = {}
+M.vtsls = {}
 
 M.eslint = {}
 
