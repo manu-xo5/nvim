@@ -15,6 +15,11 @@ return {
 				},
 			},
 
+			indent = {
+				enabled = true,
+				animate = { enabled = false },
+			},
+
 			input = {
 				enabled = true,
 				win = {
@@ -22,19 +27,62 @@ return {
 					relative = "cursor",
 					row = -3,
 					col = -3,
+					input = {
+						keys = {
+							["<Esc>"] = { "close", mode = { "n", "i" } },
+						},
+					},
 				},
 			},
 
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+
+				sources = {
+					files = {
+						layout = {
+							preset = "select",
+							preview = nil,
+						},
+					},
+					grep = {
+						matcher = {
+							file_pos = false,
+						},
+						layout = {
+							preset = "default",
+						},
+					},
+				},
+				formatters = {
+					file = {
+						truncate = 10000,
+					},
+				},
+			},
+
 			rename = { enabled = true },
+
+			scratch = { enabled = true },
 		})
 
-		vim.keymap.set("n", "<leader>ff", snacks.picker.files, { desc = "Find Files (Snacks Picker)" })
-		vim.keymap.set("n", "<leader>ft", snacks.picker.grep, { desc = "Grep word" })
-		vim.keymap.set("n", "<leader>fb", snacks.picker.git_branches, { desc = "Pick and Switch Git Branches" })
-		vim.keymap.set("n", "<leader>fc", snacks.picker.colorschemes, { desc = "Pick Color Schemes" })
+		vim.keymap.set("n", "<leader>ff", snacks.picker.files)
+		vim.keymap.set("n", "<leader>fn", function()
+			snacks.picker.files({
+				cwd = vim.fn.stdpath("config") .. "/lua",
+			})
+		end)
+		vim.keymap.set("n", "<leader>ft", snacks.picker.grep)
+		vim.keymap.set("n", "<leader>fb", snacks.picker.git_branches)
+		vim.keymap.set("n", "<leader>fc", snacks.picker.colorschemes)
 
-		vim.keymap.set("n", "grN", snacks.rename.rename_file, { desc = "Rename current file" })
+		vim.keymap.set("n", "grN", snacks.rename.rename_file)
+
+		vim.keymap.set("n", "<leader>to", function()
+			snacks.scratch.open({
+				file = vim.fn.stdpath("data") .. "/scratch/scratch.lua",
+			})
+		end)
 	end,
 	opts = {},
 }

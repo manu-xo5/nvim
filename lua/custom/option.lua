@@ -17,7 +17,7 @@ vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.number = true -- set numbered lines
 vim.opt.wrap = false -- display lines as one long line
-vim.opt.scrolloff = 1 -- minimal number of screen lines to keep above and below the cursor
+vim.opt.scrolloff = 14 -- minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff = 6 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 vim.opt.pumheight = 10
 
@@ -36,5 +36,7 @@ vim.opt.wildignore =
 vim.g.netrw_banner = 0 -- disable that anoying Netrw banner
 vim.g.netrw_browser_split = 4 -- open in a prior window
 vim.g.netrw_altv = 1 -- open splits to the right
+
+vim.g.netrw_list_hide = "^\\./\\?$,^\\.\\./\\?$" -- hide ./ and ../
 
 return {}
