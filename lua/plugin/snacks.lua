@@ -15,6 +15,10 @@ return {
 				},
 			},
 
+			explorer = {
+				enabled = true,
+			},
+
 			indent = {
 				enabled = true,
 				animate = { enabled = false },
@@ -27,36 +31,28 @@ return {
 					relative = "cursor",
 					row = -3,
 					col = -3,
-					input = {
-						keys = {
-							["<Esc>"] = { "close", mode = { "n", "i" } },
-						},
-					},
 				},
 			},
 
 			picker = {
 				enabled = true,
-
-				sources = {
-					files = {
-						layout = {
-							preset = "select",
-							preview = nil,
-						},
-					},
-					grep = {
-						matcher = {
-							file_pos = false,
-						},
-						layout = {
-							preset = "default",
-						},
-					},
-				},
 				formatters = {
 					file = {
 						truncate = 10000,
+					},
+				},
+
+				sources = {
+					explorer = {
+						win = {
+							list = {
+								keys = {
+									["."] = "",
+									["<tab>"] = "confirm",
+									["<s-tab>"] = "confirm",
+								},
+							},
+						},
 					},
 				},
 			},
@@ -66,22 +62,50 @@ return {
 			scratch = { enabled = true },
 		})
 
-		vim.keymap.set("n", "<leader>ff", snacks.picker.files)
-		vim.keymap.set("n", "<leader>fn", function()
+		vim.keymap.set("n", "<leader>ff", function()
+			snacks.picker.files({ layout = "select" })
+		end)
+
+		vim.keymap.set("n", "<leader>fc", function()
 			snacks.picker.files({
 				cwd = vim.fn.stdpath("config") .. "/lua",
 			})
 		end)
-		vim.keymap.set("n", "<leader>ft", snacks.picker.grep)
-		vim.keymap.set("n", "<leader>fb", snacks.picker.git_branches)
-		vim.keymap.set("n", "<leader>fc", snacks.picker.colorschemes)
 
-		vim.keymap.set("n", "grN", snacks.rename.rename_file)
+		vim.keymap.set("n", "<leader>fw", function()
+			snacks.picker.grep({
+				layout = "default",
+			})
+		end)
+
+		vim.keymap.set("n", "<leader>fb", function()
+			snacks.picker.git_branches()
+		end)
+
+		vim.keymap.set("n", "<leader>ft", function()
+			snacks.picker.colorschemes()
+		end)
+
+		vim.keymap.set("n", "grN", function()
+			snacks.rename.rename_file()
+		end)
 
 		vim.keymap.set("n", "<leader>to", function()
 			snacks.scratch.open({
 				file = vim.fn.stdpath("data") .. "/scratch/scratch.lua",
 			})
+		end)
+
+		vim.keymap.set("n", "<leader>e", function()
+			local explorerWin = Snacks.picker.get({ source = "explorer" })[1]
+			if explorerWin == nil then
+				Snacks.picker.explorer()
+			elseif explorerWin:is_focused() then
+				Snacks.picker.explorer()
+			else
+				Snacks.picker.explorer()
+				Snacks.picker.explorer()
+			end
 		end)
 	end,
 	opts = {},

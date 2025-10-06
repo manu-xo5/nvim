@@ -15,7 +15,7 @@ keymap("n", "<C-l>", "<C-w>l")
 keymap("n", "<C-w>t", ":tabnew<cr>")
 
 -- Netrw
-vim.keymap.set("n", "<leader>.", vim.cmd.Ex, { silent = true, noremap = true })
+-- vim.keymap.set("n", "<leader>.", vim.cmd.Ex, { silent = true, noremap = true })
 
 -- Stay in indent mode
 keymap("x", "<", "<gv")

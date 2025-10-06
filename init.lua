@@ -19,9 +19,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { import = "plugin" },
-    { import = "custom.keymap"},
     { import = "custom.option"},
+    { import = "custom.keymap"},
+    { import = "plugin" },
   },
   checker = { enabled = false },
 })

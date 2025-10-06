@@ -9,6 +9,7 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
+					"astro",
 					"c",
 					"lua",
 					"vim",
@@ -23,19 +24,6 @@ return {
 				sync_install = false,
 				highlight = { enable = true },
 				indent = { enable = true },
-
-				textobjects = {
-					move = {
-						enable = true,
-						set_jumps = true,
-						goto_next_end = {
-							["]]"] = "@function.outer",
-						},
-						goto_previous_start = {
-							["[["] = "@function.outer",
-						},
-					},
-				},
 			})
 		end,
 	},
