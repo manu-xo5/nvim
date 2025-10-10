@@ -39,4 +39,6 @@ vim.g.netrw_altv = 1 -- open splits to the right
 
 vim.g.netrw_list_hide = "^\\./\\?$,^\\.\\./\\?$" -- hide ./ and ../
 
+vim.o.laststatus = 3
+
 return {}

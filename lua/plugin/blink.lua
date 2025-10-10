@@ -2,9 +2,7 @@ return {
 	"saghen/blink.cmp",
 	event = "VimEnter",
 	version = "1.*",
-	dependencies = {
-		"folke/lazydev.nvim",
-	},
+	dependencies = { "folke/lazydev.nvim" },
 	--- @module 'blink.cmp'
 	--- @type blink.cmp.Config
 	opts = {
@@ -15,7 +13,13 @@ return {
 		},
 
 		completion = {
-			documentation = { auto_show = false, auto_show_delay_ms = 500 },
+			menu = {
+				auto_show = false,
+			},
+			documentation = {
+				auto_show = false,
+				auto_show_delay_ms = 500,
+			},
 		},
 
 		sources = {

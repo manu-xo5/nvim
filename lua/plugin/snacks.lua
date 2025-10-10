@@ -44,12 +44,18 @@ return {
 
 				sources = {
 					explorer = {
+            layout = {
+              layout = {
+                width = 0.25,
+              }
+            },
 						win = {
 							list = {
 								keys = {
 									["."] = "",
-									["<tab>"] = "confirm",
-									["<s-tab>"] = "confirm",
+									["-"] = "explorer_close",
+									["<tab>"] = "",
+									["<s-tab>"] = "",
 								},
 							},
 						},

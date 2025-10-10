@@ -8,5 +8,9 @@ return {
 			ignore_filetypes = {},
 			log_level = "info",
 		})
+
+		local api = require("supermaven-nvim.api")
+
+		vim.keymap.set("n", "<leader><s-s>", api.toggle)
 	end,
 }
