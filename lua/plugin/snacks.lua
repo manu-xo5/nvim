@@ -44,11 +44,15 @@ return {
 
 				sources = {
 					explorer = {
-            layout = {
-              layout = {
-                width = 0.25,
-              }
-            },
+						cycle = false,
+
+						layout = {
+							preset = "select",
+							layout = {
+                height = 0.8,
+								--width = 0.25,
+							},
+						},
 						win = {
 							list = {
 								keys = {

@@ -35,6 +35,7 @@ function M.open_zen()
 		split = "left",
 		width = width,
 		focusable = false,
+    fixed = true,
 		style = "minimal",
 	})
 
